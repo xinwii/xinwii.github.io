@@ -241,7 +241,7 @@
 
     
         <meta property="article:published_time" content="Sun Jan 14 2018 20:22:54 GMT+0800">
-        <meta property="article:modified_time" content="Sat Apr 14 2018 20:24:14 GMT+0800">
+        <meta property="article:modified_time" content="Sun Apr 15 2018 16:05:54 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -264,7 +264,7 @@
     "mainEntityOfPage": "http://www.xincc.top/2018/01/14/ConstraintLayout笔记/index.html",
     "headline": "ConstraintLayout笔记",
     "datePublished": "Sun Jan 14 2018 20:22:54 GMT+0800",
-    "dateModified": "Sat Apr 14 2018 20:24:14 GMT+0800",
+    "dateModified": "Sun Apr 15 2018 16:05:54 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "xinwii",
@@ -503,12 +503,22 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <p>ConstraintLayout类似于RelativeLayout，主要用来做界面的操作。主要通过拖动来实现布局，基本上可以实现一层布局，提高性能。<br>提供了layout_constraintHorizontal_weight功能，补充了RelativeLayout不足。<br>没有match_parent,要使用0dp才行。<br>layout_constraint[当前控件被约束属性]_[参照控件属性]=”[参照控件]”<br>比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintLeft_toLeftOf=&quot;parent&quot;</span><br></pre></td></tr></table></figure></p>
-<p>代表当前控件的左边与父控件的左边对齐。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintLeft_toRightOf=&quot;@id/cancel_button&quot;</span><br><span class="line">```  </span><br><span class="line">本控件的左边界与ID为cancel_button的右边界对齐</span><br><span class="line">   app:layout_constraintHorizontal_bias=&quot;0.25&quot;   本控件在X轴1/4的地方开始</span><br><span class="line">   app:layout_constraintVertical_bias=&quot;0.25&quot;   本控件在Y轴1/4的地方开始</span><br></pre></td></tr></table></figure></p>
-<p>app:layout_constraintLeft_toLeftOf=”parent”<br>app:layout_constraintRight_toRightOf=”parent”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line">   倾向（Bias）</span><br><span class="line"></span><br><span class="line">搭配bias，能使约束偏向某一边，默认是0.5，有以下属性： </span><br><span class="line">* layout_constraintHorizontal_bias (0最左边 1最右边) </span><br><span class="line">* layout_constraintVertical_bias (0最上边 1 最底边)</span><br><span class="line"></span><br><span class="line">加入app:layout_constraintHorizontal_bias=&quot;0.9&quot; ,则会在水平方向上向右偏移至90%。</span><br></pre></td></tr></table></figure></p>
-<p>android:layout_marginRight=”10dp”<br>app:layout_goneMarginRight=”110dp”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">假如button1在button2右边，如果只有layout_marginRight，如果button1隐藏，button2会向右移动，margin parent为10dp，但是原来是110dp（假设button1宽度100dp），这时候就要设置layout_goneMarginRight，设置大小为layout_marginRight加上button1的宽度，layout_goneMarginRight在button1非gone状态时无作用。</span><br></pre></td></tr></table></figure></p>
-<p>app:layout_constraintDimensionRatio=”4:3”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设置view的宽高比</span><br></pre></td></tr></table></figure></p>
-<p>app:layout_constraintDimensionRatio=”W, 1:4”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">当宽和高都为match_constraint即0dp时，约束方向为x轴时(宽为parent)： </span><br><span class="line">w, 1:2 高比宽； h, 2:1 宽比高 </span><br><span class="line">约束方向为y轴时(高为parent): </span><br><span class="line">w, 1:2 宽比高; h, 2:1 高比宽</span><br></pre></td></tr></table></figure></p>
-<p>app:layout_constraintBaseline_toBaselineOf<br><code>`</code><br>基线对齐，放到控件上面，然后在控件中间偏下出现一道横线，拖动与另外一个控件的这道横线平齐。点击ab可以出现这道线，×可以删除这种约束。</p>
+<p>代表当前控件的左边与父控件的左边对齐。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintLeft_toRightOf=&quot;@id/cancel_button&quot;</span><br><span class="line">```  </span><br><span class="line">本控件的左边界与ID为cancel_button的右边界对齐</span><br><span class="line">```  </span><br><span class="line">   app:layout_constraintHorizontal_bias=&quot;0.25&quot;   本控件在X轴1/4的地方开始</span><br><span class="line">   app:layout_constraintVertical_bias=&quot;0.25&quot;   本控件在Y轴1/4的地方开始</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintLeft_toLeftOf=&quot;parent&quot;</span><br><span class="line">app:layout_constraintRight_toRightOf=&quot;parent&quot;</span><br></pre></td></tr></table></figure>
+<p>   倾向（Bias）</p>
+<p>搭配bias，能使约束偏向某一边，默认是0.5，有以下属性： </p>
+<ul>
+<li>layout_constraintHorizontal_bias (0最左边 1最右边) </li>
+<li>layout_constraintVertical_bias (0最上边 1 最底边)</li>
+</ul>
+<p>加入app:layout_constraintHorizontal_bias=”0.9” ,则会在水平方向上向右偏移至90%。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android:layout_marginRight=&quot;10dp&quot;</span><br><span class="line">app:layout_goneMarginRight=&quot;110dp&quot;</span><br></pre></td></tr></table></figure>
+<p> 假如button1在button2右边，如果只有layout_marginRight，如果button1隐藏，button2会向右移动，margin parent为10dp，但是原来是110dp（假设button1宽度100dp），这时候就要设置layout_goneMarginRight，设置大小为layout_marginRight加上button1的宽度，layout_goneMarginRight在button1非gone状态时无作用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintDimensionRatio=&quot;4:3&quot;</span><br></pre></td></tr></table></figure></p>
+<p>设置view的宽高比</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintDimensionRatio=&quot;W, 1:4&quot;</span><br></pre></td></tr></table></figure>
+<p>当宽和高都为match_constraint即0dp时，约束方向为x轴时(宽为parent)：<br>w, 1:2 高比宽； h, 2:1 宽比高<br>约束方向为y轴时(高为parent):<br>w, 1:2 宽比高; h, 2:1 高比宽</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintBaseline_toBaselineOf</span><br></pre></td></tr></table></figure>
+<p>基线对齐，放到控件上面，然后在控件中间偏下出现一道横线，拖动与另外一个控件的这道横线平齐。点击ab可以出现这道线，×可以删除这种约束。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/6879980-5971fbf6f6f75906.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="baseline-constraint_2x.png"></p>
 
         
