@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            JVM学习04-class字节码的结构 | 
+        
+        android开发~嘤嘤
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="android开发工程师，学习，记录。">
+    <meta name="keywords" content="android,java">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="android开发~嘤嘤">
+    <meta name="msapplication-starturl" content="http://www.xincc.top/2017/03/24/java/JVM学习04-class字节码的结构/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="android开发~嘤嘤">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.xincc.top/2017/03/24/java/JVM学习04-class字节码的结构/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="JVM学习04-class字节码的结构 | android开发~嘤嘤">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="android开发工程师，学习，记录。">
+    <meta property="og:article:tag" content="java"> 
+
+    
+        <meta property="article:published_time" content="Fri Mar 24 2017 18:00:34 GMT+0800">
+        <meta property="article:modified_time" content="Sun May 06 2018 16:42:00 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://www.xincc.top/2017/03/24/java/JVM学习04-class字节码的结构/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://www.xincc.top/2017/03/24/java/JVM学习04-class字节码的结构/index.html",
+    "headline": "JVM学习04-class字节码的结构",
+    "datePublished": "Fri Mar 24 2017 18:00:34 GMT+0800",
+    "dateModified": "Sun May 06 2018 16:42:00 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "xinwii",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "android开发~嘤嘤",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",javaandroid",
+    "description": "android开发工程师，学习，记录。",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?ee8e425850499b806260824b0147ff70';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#JVM学习04-class字节码的结构"><span class="post-toc-number">1.</span> <span class="post-toc-text">JVM学习04-class字节码的结构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1-字节码简介"><span class="post-toc-number">2.</span> <span class="post-toc-text">1. 字节码简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#2-字节码的文件结构"><span class="post-toc-number">3.</span> <span class="post-toc-text">2. 字节码的文件结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-1-魔数-magic"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">2.1 魔数 magic</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-2-版本-version"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">2.2 版本 version</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-3-常量池-constant-pool-cp"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">2.3 常量池 constant_pool(cp)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-4-访问标识-access-flag"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">2.4 访问标识 access flag</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-5-本类和超类"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">2.5 本类和超类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-6-接口-Interfaces"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">2.6 接口 Interfaces</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-7-字段-Fields"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">2.7 字段 Fields</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-8-方法-Methods"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">2.8 方法 Methods</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-9-属性"><span class="post-toc-number">3.9.</span> <span class="post-toc-text">2.9 属性</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#3-总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">3. 总结</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                JVM学习04-class字节码的结构
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>xinwii</strong>
+        <span>3月 24, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/java/">java</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+    <!-- Leancloud Views -->
+        <a class="post_share-link" href="#">
+            <li class="mdl-menu__item">
+                <span id="/2017/03/24/java/JVM学习04-class字节码的结构/" class="leancloud-views_num" data-flag-title="JVM学习04-class字节码的结构">
+     &nbsp;浏览量
+</span>
+
+            </li>
+        </a>
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=JVM学习04-class字节码的结构&url=http://www.xincc.top/2017/03/24/java/JVM学习04-class字节码的结构/index.html&pic=http://www.xincc.top/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=JVM学习04-class字节码的结构&url=http://www.xincc.top/2017/03/24/java/JVM学习04-class字节码的结构/index.html&via=xinwii" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.xincc.top/2017/03/24/java/JVM学习04-class字节码的结构/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://www.xincc.top/2017/03/24/java/JVM学习04-class字节码的结构/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>[TOC]</p>
+<h1 id="JVM学习04-class字节码的结构"><a href="#JVM学习04-class字节码的结构" class="headerlink" title="JVM学习04-class字节码的结构"></a>JVM学习04-class字节码的结构</h1><h1 id="1-字节码简介"><a href="#1-字节码简介" class="headerlink" title="1. 字节码简介"></a>1. 字节码简介</h1><p>java作为跨平台的语言，其重要性就体现在java源代码编译后的字节码 <code>.class</code> 文件。很多的语言如java、groovy、scala、kotlin等都是基于JVM运行的，其根本就是输出之后的字节码。作为跨平台的一个基础，当然要对字节码的文件结构有一定的认识。</p>
+<h1 id="2-字节码的文件结构"><a href="#2-字节码的文件结构" class="headerlink" title="2. 字节码的文件结构"></a>2. 字节码的文件结构</h1><p>字节码的文件结构一次可以分为（<code>魔数，版本，常量池，访问符，类，超类，接口，字段，方法，属性</code>）。每个部分的数据的大小都采用无符号整形来表示，例如u1,u2,u4等等表示一个字节，两个字节，四个字节。具体参照下图：</p>
+<p><img src="http://img.blog.csdn.net/20160120211054820" alt="这里写图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 或者像这样</span><br><span class="line">ClassFile &#123;</span><br><span class="line">    u4 magic;</span><br><span class="line">    u2 minor_version;</span><br><span class="line">    u2 major_version;</span><br><span class="line">    u2 constant_pool_count;</span><br><span class="line">    cp_info contant_pool[constant_pool_count – 1];</span><br><span class="line">    u2 access_flags;</span><br><span class="line">    u2 this_class;</span><br><span class="line">    u2 super_class;</span><br><span class="line">    u2 interfaces_count;</span><br><span class="line">    u2 interfaces[interfaces_count];</span><br><span class="line">    u2 fields_count;</span><br><span class="line">    field_info fields[fields_count];</span><br><span class="line">    u2 methods_count;</span><br><span class="line">    method_info methods[methods_count];</span><br><span class="line">    u2 attributes_count;</span><br><span class="line">    attribute_info attributes[attributes_count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>图中的数据类型除了无符号整形之外，还有”_info”结尾的数据类型，这种称之为”表”。例如常量池中是存在多个常量的，所以要通过类似表的结构来进行存储，而且因为字节码是依次排列的，所以在描述常量池信息之前还需要对常量池中常量的个数进行描述（标记），这个很容易理解，就是用来判断什么时候读到常量池的结尾了。当然字段，方法和属性以”_info”结尾就类似了。<br>下面对每一个部分一一描述：</p>
+<p>在分析字节码之前介绍一款工具，<a href="http://www.cs.ioc.ee/~ando/jbe/" target="_blank" rel="noopener">Java ByteCode Editor</a></p>
+<p>以下的例子基于代码（<strong>举例子的时候常量池的索引可能会存在误差，下面阅读的时候请考虑这段话</strong>）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.minosa.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloClass</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name = <span class="string">"Mimosa"</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age = <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello "</span> + name + <span class="string">" ,"</span> + age);</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> c = a + b;</span><br><span class="line">		System.out.println(c);</span><br><span class="line">		System.out.println(<span class="string">"Hello Class !!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-1-魔数-magic"><a href="#2-1-魔数-magic" class="headerlink" title="2.1 魔数 magic"></a>2.1 魔数 magic</h2><p>魔数是字节码固定的数值，在文件的最开始部分，占四个字节，值是 （<strong>CA FE BA BE</strong>）。</p>
+<h2 id="2-2-版本-version"><a href="#2-2-版本-version" class="headerlink" title="2.2 版本 version"></a>2.2 版本 version</h2><p>版本分为小版本minor和大版本major，分别占两个字节。例如（00 00 00 33）就表示 51.0版本。如图，稍微看下即可：</p>
+<p><img src="http://img.blog.csdn.net/20160120211257313" alt="这里写图片描述"></p>
+<h2 id="2-3-常量池-constant-pool-cp"><a href="#2-3-常量池-constant-pool-cp" class="headerlink" title="2.3 常量池 constant_pool(cp)"></a>2.3 常量池 constant_pool(cp)</h2><p>常量池是整个字节码结构中最重要的一个部分，因为常量池之后的数据基本都是引用常量池中的数据，后面就会看到。<br>常量池分为两个部分：cp数量和cp_info。之前说过先是以数量开头作为标识。<br>这里解决下一个问题：为什么field_info等的数量都是fields_count，而cp_info的数量却要减1。这是因为常量池中的真实存在的数据是以下标1开始的，而下标0则代表”无引用”（不引用常量池中的任意一项），比如一个类没有接口的话就指向常量池中0下标。</p>
+<p><img src="http://img.blog.csdn.net/20160120211320056" alt="这里写图片描述"></p>
+<p>常量池中的数据又存在多种类型的常量，如Class_info, Utf8_info等等，如图总表所示：类型有点多（不必害怕），依次使用例子进行描述</p>
+<p><img src="http://img.blog.csdn.net/20160120211342424" alt="这里写图片描述"></p>
+<p><strong>1. Utf8_info</strong></p>
+<p>Utf8_info 的数据表示utf8编码中的数据，在字节码中分为三个部分：tag标识，bytes长度，bytes数据。<br>tag表示是固定的，Utf8_info的tag值是（01），占一个字节。<br>其次是bytes数组的length，占两个字节。<br>最后是bytes数组中的数据，依次表示，每个字符占一个字节（中文不止一个字节，可自行研究）。<br>比如一个类的名称（com/minosa/test/HelloClass）是个字符串，指向常量池中一个Utf8_info的数据：</p>
+<p><img src="http://img.blog.csdn.net/20160120211415697" alt="这里写图片描述"></p>
+<p>class字节码16进制表示中的数据（用的editplus的16进制查看器打开的）：</p>
+<p><img src="http://img.blog.csdn.net/20160120211424150" alt="这里写图片描述"></p>
+<p>上图蓝色高亮部分：<br>(1) <strong>01</strong> tag 表示Utf8_info类型。<br>(2) <strong>00 1A</strong> 表示字节数组的长度，是26<br>(3) <strong>63 6F 6D … 73 73</strong>，表示数组中的数据，就是字符串utf8编码的表示，这里是的数据是（com … ss）。</p>
+<p><strong>2. Integer_info</strong></p>
+<p>Integer_info 数据分为两个部分：tag标识，int型值<br>tag固定值为 03；其次是int的值，占4个字节。一般在常量池中的整形，浮点型等数据在java中是static final类型的编译时常量。<br>比如一个static final int i = 10;</p>
+<p><img src="http://img.blog.csdn.net/20160120211610177" alt="这里写图片描述"></p>
+<p>16进制字节码表示：</p>
+<p><img src="http://img.blog.csdn.net/20160120211626927" alt="这里写图片描述"></p>
+<p><strong>3. Float_info</strong></p>
+<p>同 Integer_info 类型，只是tag为4，数据占4个字节。</p>
+<p><strong>4. Long_info</strong></p>
+<p>同 Integer_info 类型，只是tag为5，数据占8个字节。</p>
+<p><strong>5. Double_info</strong></p>
+<p>同 Integer_info 类型，只是tag为6，数据占8个字节。</p>
+<p><strong>6. Class_info</strong></p>
+<p>Class_info 表示一个类的信息，包含两个部分：tag和类全名。<br>tag固定值为 07 ，类全名name是一个index（索引），指向一个utf8_info。<br>如上面的类（com/minosa/test/HelloClass），表示为：</p>
+<p><img src="http://img.blog.csdn.net/20160120211741788" alt="这里写图片描述"></p>
+<p>图中类的名称指向常量池中索引为2的常量，在16进制的字节码中表示为：</p>
+<p><img src="http://img.blog.csdn.net/20160120211747960" alt="这里写图片描述"></p>
+<p>上图中：魔数是（CA FE BA BE），版本号是（00 00 00 33）。紧接着就是常量池：（00 46）表示常量池中数据的数量，然后就是常量池中的数据。这里的（07 00 02）就表示Class_info。</p>
+<p><strong>7. String_info</strong></p>
+<p>String_info表示字符串常量，分为两个部分：tag和String值。<br>tag固定值为 08，String的值是一个指向utf8_info的索引。<br>比如一个面值为”Mimosa”的string常量，在常量池的表示：</p>
+<p><img src="http://img.blog.csdn.net/20160120211816495" alt="这里写图片描述"></p>
+<p>在16进制字节码中的表示：</p>
+<p><img src="http://img.blog.csdn.net/20160120211825605" alt="这里写图片描述"></p>
+<p><strong>8. NameAndType_info</strong></p>
+<p>NameAndType_info 表示名称和类型的常量，为以下Fieldref_info，Methodref_info，InterfaceMethodref_info服务。<br>NameAndType_info 分为三个部分：tag，name和描述description。<br>tag是固定值 0C，name就表示该类型的名称（指向utf8_info的索引），description是该类型的描述（指向utf8_info的索引）。<br>这里的类型到后面再说，比如一个构造方法的描述：</p>
+<p><img src="http://img.blog.csdn.net/20160120211848042" alt="这里写图片描述"></p>
+<p>这里的<init>表示构造方法的描述名称，()V表示构造方法（这个后面会介绍）。<br>16进制字节码描述：</init></p>
+<p><img src="http://img.blog.csdn.net/20160120211854633" alt="这里写图片描述"></p>
+<p><strong>9. Fieldref_info</strong></p>
+<p>Fieldref_info 表示一个字段的描述，分为三个部分：tag，字段所在的Class（指向一个Class_info），字段的描述（指向一个NameAndType_info）。<br>tag是固定值 09；其次是字段所在的类的描述；然后是字段的NameAndType描述。<br>比如一个字段 public String name;</p>
+<p><img src="http://img.blog.csdn.net/20160120211923883" alt="这里写图片描述"></p>
+<p>图中Class_info上面已经有图了，然后是NameAndType_info为：</p>
+<p><img src="http://img.blog.csdn.net/20160120211944728" alt="这里写图片描述"></p>
+<p>Name表示字段的名称为name，Descriptor是字段的类型为（Ljava/lang/String;），类型后面会讲到。<br>Fieldref_info 在16进制字节码中表示：</p>
+<p><img src="http://img.blog.csdn.net/20160120211956806" alt="这里写图片描述"></p>
+<p><strong>10. Methodref_info</strong></p>
+<p>Methodref_info 就和 Fieldref_info 同理了，分为tag，方法所在类，方法的描述三个部分。<br>tag固定值为 0A；其次是方法所在类；最后是方法的描述；<br>以构造方法为例：</p>
+<p><img src="http://img.blog.csdn.net/20160120212015306" alt="这里写图片描述"></p>
+<p>之后的分析就和上面同理。</p>
+<p><strong>11. InterfaceMethodref_info</strong></p>
+<p>接口的方法定义，与 Methodref_info 同理。<br>分为三个部分：tag固定值为 0B，方法所在的接口（指向一个Class_info），方法的描述（指向一个NameAndType_info）。</p>
+<h2 id="2-4-访问标识-access-flag"><a href="#2-4-访问标识-access-flag" class="headerlink" title="2.4 访问标识 access flag"></a>2.4 访问标识 access flag</h2><p>访问标识标识类的访问类型，占2个字节。所有类型如图：</p>
+<p><img src="http://img.blog.csdn.net/20160120212053791" alt="这里写图片描述"></p>
+<p>比如当前类的访问标识为public：</p>
+<p><img src="http://img.blog.csdn.net/20160120212100934" alt="这里写图片描述"></p>
+<h2 id="2-5-本类和超类"><a href="#2-5-本类和超类" class="headerlink" title="2.5 本类和超类"></a>2.5 本类和超类</h2><p>紧接着是本类和超类的，this_class和super_class都是指向常量池中的一个Class_info。比如之前的例子：</p>
+<p><img src="http://img.blog.csdn.net/20160120212138011" alt="这里写图片描述"></p>
+<p>在16进制字节码中的表示：</p>
+<p><img src="http://img.blog.csdn.net/20160120212151106" alt="这里写图片描述"></p>
+<h2 id="2-6-接口-Interfaces"><a href="#2-6-接口-Interfaces" class="headerlink" title="2.6 接口 Interfaces"></a>2.6 接口 Interfaces</h2><p>接口与常量池类似，分为接口数量和接口描述两个部分。<br>接口数量占用2个字节；每个接口描述是指向常量池中的一个Class_info，也占2个字节。</p>
+<p><img src="http://img.blog.csdn.net/20160120212211308" alt="这里写图片描述"></p>
+<p>由于本例子中接口的数量是0，所以后面没有接口的描述。</p>
+<h2 id="2-7-字段-Fields"><a href="#2-7-字段-Fields" class="headerlink" title="2.7 字段 Fields"></a>2.7 字段 Fields</h2><p>字段同样分为两个部分：字段数量和字段的描述。<br>字段数量占2个字节。<br>每个字段描述分为5个部分：访问标识，字段名（常量池索引），字段描述（常量池索引），属性数量和属性描述。</p>
+<p><strong>1. 字段访问标识</strong><br>与类的访问标识类似，占2个字节。</p>
+<p><img src="http://img.blog.csdn.net/20160120212234606" alt="这里写图片描述"></p>
+<p><strong>2. 字段名</strong><br>字段的名称，指向常量池中的一个utf8_info数据。</p>
+<p><strong>3. 字段描述</strong><br>字段的描述也是指向常量池中的一个utf8_info数据。之前说类型描述后面会讲到，这里列出所有的字段类型的描述符（方法的描述符后面说）。</p>
+<p><img src="http://img.blog.csdn.net/20160120212256888" alt="这里写图片描述"></p>
+<p><strong>4. 属性数量和属性描述</strong><br>attributes_count 占2个字节，后面紧接着就是每个attribute_info 的描述。例如当有一个static final类型的变量，就会生成一个编译时常量Integer_info值的描述。</p>
+<p>例子：比如name字段和age字段<br>首先是字段的数量：</p>
+<p><img src="http://img.blog.csdn.net/20160120212325372" alt="这里写图片描述"></p>
+<p><code>1 . private String name;</code></p>
+<p><img src="http://img.blog.csdn.net/20160120212342841" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20160120212354842" alt="这里写图片描述"><br>name属性依次是：（00 02）表示private；（00 05和00 06）表示name和Descriptor；（00 00）表示属性的数量，这里不存在。</p>
+<p><code>2 . private int age;</code></p>
+<p><img src="http://img.blog.csdn.net/20160120212525154" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20160120212538454" alt="这里写图片描述"></p>
+<p>同上。</p>
+<p><code>3 . public static final int i = 10;</code></p>
+<p><img src="http://img.blog.csdn.net/20160120212601204" alt="这里写图片描述"></p>
+<p>然后字段有一个ConstantValue（常量）属性：</p>
+<p><img src="http://img.blog.csdn.net/20160120212620642" alt="这里写图片描述"></p>
+<p>这里常量池中的#10和#11分为表示：</p>
+<p><img src="http://img.blog.csdn.net/20160120212632795" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20160120212644455" alt="这里写图片描述"></p>
+<h2 id="2-8-方法-Methods"><a href="#2-8-方法-Methods" class="headerlink" title="2.8 方法 Methods"></a>2.8 方法 Methods</h2><p>同样，方法也分为数量和方法的描述。<br>方法的描述和字段类似，也分为：访问标识，名称，描述，属性数量和属性。</p>
+<p><strong>1. 访问标识</strong><br>占用2个字节。</p>
+<p><img src="http://img.blog.csdn.net/20160120212720550" alt="这里写图片描述"></p>
+<p><strong>2. 名称和描述</strong><br>名称和描述都是指向常量池中的utf8_info，各占2个字节。这里说下方法的描述符：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例举几个例子就明白了</span></span><br><span class="line"><span class="number">1</span>. 构造方法 </span><br><span class="line">==&gt; ()V</span><br><span class="line">表示没有参数，返回值为<span class="keyword">void</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. <span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(<span class="keyword">char</span>[],<span class="keyword">int</span>)</span> </span></span><br><span class="line"><span class="function"></span>==&gt; ([CI)I</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. <span class="function">String <span class="title">name</span><span class="params">(String,<span class="keyword">long</span>)</span> </span></span><br><span class="line"><span class="function"></span>==&gt; (Ljava/lang/String;J)Ljava/lang/String;</span><br></pre></td></tr></table></figure>
+<p><strong>3. 属性数量和属性</strong><br>属性的数量占2个字节。<br>在field和method中可以有很多属性，类也存在attribute，每个attribute用于描述一个额外的信息。<br>每个attribute又分为三个部分：attribute名称，attribute的长度和属性的描述。<br>attribute名称是指向常量池中的一个utf8_info，占2个字节；attribute的长度占4个字节；每一个属性内容占1个字节。<br>这里列举一些属性的描述：</p>
+<p><img src="http://img.blog.csdn.net/20160120212810655" alt="这里写图片描述"></p>
+<p>例如每个方法含有Code属性，Code包含着需要执行的代码（下一博客讲述），Code属性中又含有LineNumberTable和LocalVaribleTable。<br>LineNumberTable记录在源代码中的行号，LocalVaribleTable就表示之前博客讲过的JVM内存模型中栈中的局部变量分配的表。<br>例如Exceptions属性表示方法申明的抛出的异常（throws的部分，非try/catch部分）。<br>例如SourceFile表示生成该字节码的源文件名称。<br>例如ConstantValue表示final常量的值，上面字段例举过了。</p>
+<h2 id="2-9-属性"><a href="#2-9-属性" class="headerlink" title="2.9 属性"></a>2.9 属性</h2><p>刚刚说了类也存在属性，那么字节码的最后一项就是类的属性。同样分为属性的数量和属性描述。<br>例如在本例子中，存在SourceFile属性：<br><img src="http://img.blog.csdn.net/20160120212858131" alt="这里写图片描述"></p>
+<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h1><p>其实字节码的结构还算是比较简单的，稍微过下就好。下面需要理解的就是方法中代码Code的执行过程，可以使用java自带的javap -verbose对字节码进行反汇编，查看执行的指令。理解完了字节码的执行过程，那么在此基础上可以使用ASM等字节码工具更好的对字节码进行操作。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style='padding:10px;' class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' == true;
+    var verify = 'false' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "vEOpfYrMUTPxez4tOTNQJv9A-gzGzoHsz",
+        appKey: "qlbEzWd9EJ3vHa07eHpWPIVU",
+        placeholder: "Just go go",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/03/26/java/JVM学习05-字节码执行过程和JVM指令集/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/03/18/java/JVM学习03-类加载机制/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="xinwii's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        mestic@foxmail.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:mestic@foxmail.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/06/">六月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android/">Android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/android/">android<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/java/">java<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/categories/mysql/">mysql<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/weex/">weex<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/xinwii" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+
+    <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;android开发~嘤嘤
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by Hexo</div>
+                <div class="footer-develop-div">Theme - Material</div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+    <!-- Leancloud -->
+    <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+    <script>
+        AV.initialize('vEOpfYrMUTPxez4tOTNQJv9A-gzGzoHsz', 'qlbEzWd9EJ3vHa07eHpWPIVU');
+    </script>
+    <script type="text/ls-javascript" id="leancloud-views-script">
+    function showTime(Counter) {
+        var query = new AV.Query(Counter);
+        $('.leancloud-views_num').each(function() {
+            var url = $(this).attr('id').trim();
+            query.equalTo('url', url);
+            query.find({
+                success: function(results) {
+                    if (results.length === 0) {
+                        var content = '0 ' + $(document.getElementById(url)).text();
+                        $(document.getElementById(url)).text(content);
+                        return;
+                    }
+                    for (var i = 0; i < results.length; i++) {
+                        var object = results[i];
+                        var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+                        $(document.getElementById(url)).text(content);
+                    }
+                },
+                error: function(object, error) {
+                    console.log('Error: ' + error.code + ' ' + error.message);
+                }
+            });
+        });
+    }
+
+    function addCount(Counter) {
+      var Counter = AV.Object.extend('Counter');
+      url = $('.leancloud-views_num').attr('id').trim();
+      title = $('.leancloud-views_num').attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+      query.equalTo('url', url);
+      query.find({
+          success: function(results) {
+            if (results.length > 0) {
+                var counter = results[0];
+                counter.fetchWhenSave(true);
+                counter.increment('time');
+                counter.save(null, {
+                    success: function(counter) {
+                        var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+                        $(document.getElementById(url)).text(content);
+                    },
+                    error: function(counter, error) {
+                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                    }
+                });
+            } else {
+              var newcounter = new Counter();
+              newcounter.set('title', title);
+              newcounter.set('url', url);
+              newcounter.set('time', 1);
+              newcounter.save(null, {
+                  success: function(newcounter) {
+                      console.log('newcounter.get(\'time\')='+newcounter.get('time'));
+                      var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+                      $(document.getElementById(url)).text(content);
+                  },
+                  error: function(newcounter, error) {
+                      console.log('Failed to create');
+                  }
+              });
+            }
+        },
+        error: function(error) {
+            console.log('Error:' + error.code + ' ' + error.message);
+        }
+      });
+    }
+    $(function() {
+        var Counter = AV.Object.extend('Counter');
+        if ($('.leancloud-views_num').length === 1) {
+            addCount(Counter);
+        } else if ($('.post-title-link').length > 1) {
+            showTime(Counter);
+        }
+    });
+</script>
+
+
+
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 2015;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.1},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+    
+</html>
