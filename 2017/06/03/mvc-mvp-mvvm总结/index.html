@@ -45,7 +45,7 @@
     
     <title>
         
-            http状态码 | 
+            mvc,mvp,mvvm总结 | 
         
         android开发者
     </title>
@@ -56,7 +56,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="android开发工程师，学习，记录。">
-    <meta name="keywords" content="android,http">
+    <meta name="keywords" content="android,架构,java,android">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -217,7 +217,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="android开发者">
-    <meta name="msapplication-starturl" content="http://www.xincc.top/2018/05/19/前端/http状态码/">
+    <meta name="msapplication-starturl" content="http://www.xincc.top/2017/06/03/mvc-mvp-mvvm总结/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="android开发者">
@@ -232,16 +232,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://www.xincc.top/2018/05/19/前端/http状态码/">
+    <meta property="og:url" content="http://www.xincc.top/2017/06/03/mvc-mvp-mvvm总结/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="http状态码 | android开发者">
+    <meta property="og:title" content="mvc,mvp,mvvm总结 | android开发者">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="android开发工程师，学习，记录。">
-    <meta property="og:article:tag" content="http"> 
+    <meta property="og:article:tag" content="架构"> <meta property="og:article:tag" content="java"> <meta property="og:article:tag" content="android"> 
 
     
-        <meta property="article:published_time" content="Sat May 19 2018 16:18:14 GMT+0800">
-        <meta property="article:modified_time" content="Sun May 20 2018 16:46:22 GMT+0800">
+        <meta property="article:published_time" content="Sat Jun 03 2017 16:52:22 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jun 03 2018 16:53:28 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -249,7 +249,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://www.xincc.top/2018/05/19/前端/http状态码/index.html" />
+        <link rel="canonical" href="http://www.xincc.top/2017/06/03/mvc-mvp-mvvm总结/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -261,10 +261,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://www.xincc.top/2018/05/19/前端/http状态码/index.html",
-    "headline": "http状态码",
-    "datePublished": "Sat May 19 2018 16:18:14 GMT+0800",
-    "dateModified": "Sun May 20 2018 16:46:22 GMT+0800",
+    "mainEntityOfPage": "http://www.xincc.top/2017/06/03/mvc-mvp-mvvm总结/index.html",
+    "headline": "mvc,mvp,mvvm总结",
+    "datePublished": "Sat Jun 03 2017 16:52:22 GMT+0800",
+    "dateModified": "Sun Jun 03 2018 16:53:28 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "xinwii",
@@ -282,7 +282,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",httpandroid",
+    "keywords": ",架构,java,androidandroid",
     "description": "android开发工程师，学习，记录。",
 }
 </script>
@@ -351,6 +351,15 @@
     <!-- Left aligned menu below button -->
     
     
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、MVC"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、MVC</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、MVP"><span class="post-toc-number">2.</span> <span class="post-toc-text">2、MVP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、MVVM"><span class="post-toc-number">3.</span> <span class="post-toc-text">3、MVVM</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、总结三种架构："><span class="post-toc-number">4.</span> <span class="post-toc-text">4、总结三种架构：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、小结"><span class="post-toc-number">5.</span> <span class="post-toc-text">5、小结</span></a></li></ol>
+    </ul>
+    
 
 
 
@@ -380,7 +389,7 @@
         
     
             <p class="article-headline-p">
-                http状态码
+                mvc,mvp,mvvm总结
             </p>
         </div>
 
@@ -399,7 +408,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>xinwii</strong>
-        <span>5月 19, 2018</span>
+        <span>6月 03, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -423,7 +432,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/http/">http</a>
+        <a class="post_tag-link" href="/tags/android/">android</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/java/">java</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/架构/">架构</a>
     </ul>
     
 
@@ -438,7 +447,7 @@
     <!-- Leancloud Views -->
         <a class="post_share-link" href="#">
             <li class="mdl-menu__item">
-                <span id="/2018/05/19/前端/http状态码/" class="leancloud-views_num" data-flag-title="http状态码">
+                <span id="/2017/06/03/mvc-mvp-mvvm总结/" class="leancloud-views_num" data-flag-title="mvc,mvp,mvvm总结">
      &nbsp;浏览量
 </span>
 
@@ -450,7 +459,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=http状态码&url=http://www.xincc.top/2018/05/19/前端/http状态码/index.html&pic=http://www.xincc.top/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=mvc,mvp,mvvm总结&url=http://www.xincc.top/2017/06/03/mvc-mvp-mvvm总结/index.html&pic=http://www.xincc.top/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -459,7 +468,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=http状态码&url=http://www.xincc.top/2018/05/19/前端/http状态码/index.html&via=xinwii" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=mvc,mvp,mvvm总结&url=http://www.xincc.top/2017/06/03/mvc-mvp-mvvm总结/index.html&via=xinwii" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -468,7 +477,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.xincc.top/2018/05/19/前端/http状态码/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.xincc.top/2017/06/03/mvc-mvp-mvvm总结/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -477,7 +486,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://www.xincc.top/2018/05/19/前端/http状态码/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://www.xincc.top/2017/06/03/mvc-mvp-mvvm总结/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -502,19 +511,14 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <pre><code>200 OK - [GET]：服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。
-201 CREATED - [POST/PUT/PATCH]：用户新建或修改数据成功。
-202 Accepted - [*]：表示一个请求已经进入后台排队（异步任务）
-204 NO CONTENT - [DELETE]：用户删除数据成功。
-400 INVALID REQUEST - [POST/PUT/PATCH]：用户发出的请求有错误，服务器没有进行新建或修改数据的操作，该操作是幂等的。
-401 Unauthorized - [*]：表示用户没有权限（令牌、用户名、密码错误）。
-403 Forbidden - [*] 表示用户得到授权（与401错误相对），但是访问是被禁止的。
-404 NOT FOUND - [*]：用户发出的请求针对的是不存在的记录，服务器没有进行操作，该操作是幂等的。
-406 Not Acceptable - [GET]：用户请求的格式不可得（比如用户请求JSON格式，但是只有XML格式）。
-410 Gone -[GET]：用户请求的资源被永久删除，且不会再得到的。
-422 Unprocesable entity - [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误。
-500 INTERNAL SERVER ERROR - [*]：服务器发生错误，用户将无法判断发出的请求是否成功。
-</code></pre>
+        <h3 id="1、MVC"><a href="#1、MVC" class="headerlink" title="1、MVC"></a>1、MVC</h3><p>MVC，顾名思义，MVC是将Model, View 和Controller分离，让彼此的职责(responsibility)能够明确的分开，这样不论是改M、 V还是C，都可以确保另外两层可不用做任何修改，同时这样的分层也可以加强程式的可测试性(testability)，View和Model基本上是相关的，但它们并不会有直接的相依关系，而是由Controller去决定Model产生的资料，然后丢给View去做呈现，也就是说，Controller是Model和View之间的协调者(coordinator)，View和Model不能直接沟通，以确保责任的分离。而Controller可以只是一个系结Model和View的小类别，也可以是大到包含Workflow, Enterprise Services或是做为外部系统的Proxy Services等的逻辑系统，MVC各元件是可以分离的组件，也可以是分离的系统(当然要设计一些机制在相互沟通)。可以看到MVC中Controller（Activity）中既要控制视图（Layout）也要处理业务（数据），Controller只是将View（layout）与Model尽可能分开，当然View也可以直接获取Model数据，如果将View与Model完全分开，就要使用MVP框架。<br>这里写图片描述</p>
+<p>总结MVC：<br>1) 视图层（View）：一般采用XML布局文件进行界面的描述，也可使用代码。<br>2) 控制层（Controller）：Android的控制层是Activity或Fragment，一个Activity可以对应多个Fragment。目前点评Android的框架采用Fragment，大多数页面采用Fragment作为控制层。<br>3) 模型层（Model）：数据模型，由于Android变量个数限制，目前点评Android几乎不存在Model。<br>缺点：<br>主要的缺点是Controller太复杂，显示逻辑和其他逻辑混合在一起不好维护；由于缺少数据模型支持，代码更混乱；模块、控件可复用性低。</p>
+<h3 id="2、MVP"><a href="#2、MVP" class="headerlink" title="2、MVP"></a>2、MVP</h3><p>MVP，MVP一样也是职责分明，且Model与View分离的架构，但是这个P (Presenter)和ViewModel就很类似，不过就如同Presenter (主持人)这个字所代表的意义，所有主控View呈现的工作，都是由Presenter来做，而View本身只是Presenter所要使用的舞台而已，所以View原则上会相依于Presenter，但是为了要做到关注点分离(SoC原则)，所以在View和Presenter间都会加入一个介面(ex: IView)，然后以IoC的方式将View注射到Presenter中，而Presenter就使用介面所定义的方法去操控，而View就透过介面所定义的方法去呈现介面即可。但也因为受限于介面，所以Presenter只能依介面定义的动作去回应与处理，而不能再做更多的延伸功能，除非更改View的介面。 </p>
+<h3 id="3、MVVM"><a href="#3、MVVM" class="headerlink" title="3、MVVM"></a>3、MVVM</h3><p>MVVM，MVVM的架构一样是M, V分离，但中间是以VM (ViewModel)来串接，这个ViewModel比较像是View的一个代理程式，它负责直接对Model做沟通，而View可以透过一些机制(ex: Events, Two-way Databindings, …)来和ViewModel沟通以取得资料或将资料抛给Model做存取等工作，ViewModel也可以作为和外部系统的代理程式，例如Web Service或是REST Service或是Enterprise Services等等，不过它和MVC不同的地方，就是ViewModel和View的黏合度比较高，因为View必须要透过ViewModel才可以取得Model，而ViewModel又必须要处理来自View的通知讯息，所以虽然职责一样分明，但是却不像MVC那样可以扩展到整个系统元件都能用。如果MVVM要和MVP比较的话，MVVM会比MVP更灵活一点。 </p>
+<p>总结MVVM：<br>1）低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。<br>2） 可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。<br>3） 独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xaml代码。<br>4）可测试。界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。<br>由上面各个架构的讨论，我们可以得到以下的结果：</p>
+<h3 id="4、总结三种架构："><a href="#4、总结三种架构：" class="headerlink" title="4、总结三种架构："></a>4、总结三种架构：</h3><p>MVC 架构适合于大型系统，它可以分层且可以在实体层面切割为不同的机器或服务，只要彼此间具有适当的通讯协定即可。<br>MVVM 架构适合像XAML 这种与程式码无关(code ignorance) 的使用者介面设计，只要View 中下特定的指令与ViewModel 串接，就可以享有ViewModel 沟通的功能，而ViewModel 只需做一些特别的介面实作，即可平顺的和View 沟通。<br>MVP 架构适合集中由程式码决定View 动作的应用程式，而View 只需要实作特定的介面即可，不需要太复杂的工作，但Presenter 则可能会受限于View 介面的动作，而无法做更进一步对View 的控制。</p>
+<h3 id="5、小结"><a href="#5、小结" class="headerlink" title="5、小结"></a>5、小结</h3><p>在Android开发中原有的MVC（Activity+layout）模式越来越不适用，首先，视图逻辑和业务逻辑不分，导致代码容易出问题、难以可持续性维护；其次，由于业务逻辑混在视图逻辑里面，视图基本无法复用，layout本身是代码文件，但是又不像java代码那样可维护，灵活，可以有逻辑，所以很少复用layout文件，有经验的Android程序员会尽可能避免复用Layout文件特别是复用别人写的layout文件。所以出于视图复用的目的原有的MVC也不适用，MVVM成了一种必要的选择。</p>
+
         
     
 
@@ -557,7 +561,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/06/03/android/eventbus源码解读/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/06/14/java/服务器选windows还是linux/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -571,7 +575,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2018/05/04/java/git放弃本地所有修改强制pull/" id="post_nav-older" class="next-content">
+        <a href="/2017/05/05/java/记录一些面试问题/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
